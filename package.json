@@ -1,0 +1,19 @@
+{
+  "name": "img-2",
+  "version": "1.0.0",
+  "description": "Replace <img /> elements with <img-2> to automatically pre-cache images and improve page performance.",
+  "main": "index.js",
+  "scripts": {
+    "build": "babel src/img-2.js --out-file dist/img-2.js --watch"
+  },
+  "keywords": [
+    "pre-cache",
+    "pre-load"
+  ],
+  "author": "Leon Revill (@revillweb)",
+  "license": "MIT",
+  "devDependencies": {
+    "babel-core": "^6.26.0",
+    "babel-plugin-transform-class-properties": "^6.24.1"
+  }
+}
