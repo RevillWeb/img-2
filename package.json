@@ -4,7 +4,8 @@
   "description": "Replace <img /> elements with <img-2> to automatically pre-cache images and improve page performance.",
   "main": "index.js",
   "scripts": {
-    "build": "babel src/img-2.js --out-file dist/img-2.js --watch"
+    "build": "babel src/img-2.js --out-file dist/img-2.js --watch",
+    "serve": "http-server -p 3232 ."
   },
   "keywords": [
     "pre-cache",
@@ -14,6 +15,7 @@
   "license": "MIT",
   "devDependencies": {
     "babel-core": "^6.26.0",
-    "babel-plugin-transform-class-properties": "^6.24.1"
+    "babel-plugin-transform-class-properties": "^6.24.1",
+    "http-server": "^0.11.1"
   }
 }
