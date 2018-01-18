@@ -72,6 +72,7 @@ class Img2 extends HTMLElement {
 
     connectedCallback() {
 
+        if (window.ShadyCSS) ShadyCSS.styleElement(this);
         // Override any global settings
         this._renderOnPreCached = this.getAttribute("render-on-pre-cached") === "true";
         this._init();
@@ -188,7 +189,10 @@ class Img2 extends HTMLElement {
             // Attach the Shadow Root to the element
             this._root = this.attachShadow({ mode: "open" });
             // Create the initial template with styles
-            this._root.innerHTML = `${ this[__style__]() }`;
+            let $template = document.createElement("template");
+            $template.innerHTML = `${ this[__style__]() }`;
+            if (window.ShadyCSS) ShadyCSS.prepareTemplate($template, "img-2");
+            this._root.appendChild(document.importNode($template.content, true));
         }
 
         // If a preview image has been specified
