@@ -157,7 +157,7 @@
             const $item = document.createElement("div");
             $item.classList.add("item");
             const ratio = Math.min(400 / img.width, 600 / img.height);
-            $item.innerHTML = (useImg2 === true) ? `<img-2 src-preview="${img.urls.raw}?ixlib=rb-0.3.5&q=1&fm=jpg&crop=entropy&cs=tinysrgb&w=10&height=10&fit=max" src="${img.urls.regular}?ts=${Date.now()}" width="${img.width * ratio}" height="${img.height * ratio}"></img-2>` : `<img src="${img.urls.regular}?ts=${Date.now()}" width="${img.width * ratio}" height="${img.height * ratio}" />`;
+            $item.innerHTML = (useImg2 === true) ? `<img-2 src-preview="${img.urls.raw}?ixlib=rb-0.3.5&q=1&fm=jpg&crop=entropy&cs=tinysrgb&w=10&height=10&fit=max" src="${img.urls.regular}?ts=${Date.now()}" width="${img.width * ratio}" height="${img.height * ratio}" alt="${img.description}"></img-2>` : `<img src="${img.urls.regular}?ts=${Date.now()}" width="${img.width * ratio}" height="${img.height * ratio}" alt="${img.description}" />`;
             $container.appendChild($item);
         });
 

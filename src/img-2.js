@@ -140,7 +140,7 @@ class Img2 extends HTMLElement {
     }
 
     static get observedAttributes() {
-        return ["src", "width", "height"];
+        return ["src", "width", "height", "alt"];
     }
     attributeChangedCallback(name, oldValue, newValue) {
 
@@ -155,28 +155,35 @@ class Img2 extends HTMLElement {
                 break;
             case "width":
                 this._width = newValue;
-                if (this._$preview !== null) {
-                    this._$preview.width = this._width;
-                }
-                if (this._$img !== null) {
-                    this._$img.width = this._width;
-                }
+                if (this._$preview !== null) this._$preview.width = this._width;
+                if (this._$img !== null) this._$img.width = this._width;
                 this.style.width = `${this._width}px`;
                 break;
             case "height":
                 this._height = newValue;
-                if (this._$preview !== null) {
-                    this._$preview.height = this._height;
-                }
-                if (this._$img !== null) {
-                    this._$img.height = this._height;
-                }
+                if (this._$preview !== null) this._$preview.height = this._height;
+                if (this._$img !== null) this._$img.height = this._height;
                 this.style.height = `${this._height}px`;
                 break;
             case "render-on-pre-cached":
-                this._renderOnPreCached = !(this.getAttribute("render-on-pre-cached") === "false");
+                this._renderOnPreCached = !(newValue === "false");
+                break;
+            case "alt":
+                this._updateAttribute("alt", newValue);
                 break;
         }
+    }
+
+    /** 
+     * Method used to update an individual attribute on the native image element
+     * @param {string} name - The name of the attribute to update
+     * @param {string} value - The new attribute value
+     * @private
+    */
+    _updateAttribute(name, value) {
+        // If the image element hasn't been rendered yet, just return.
+        if (this._rendered === false) return;
+        this._$img.setAttribute(name, value);
     }
 
     /**
@@ -219,6 +226,8 @@ class Img2 extends HTMLElement {
             // add the specified width and height to the image element
             this._$img.width = this._width;
             this._$img.height = this._height;
+            const alt = this.getAttribute("alt");
+            if (alt !== null) this._$img.setAttribute("alt", alt);
             // Add the image to the Shadow Root
             this._root.appendChild(this._$img);
         }
