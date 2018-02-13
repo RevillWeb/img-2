@@ -12,7 +12,9 @@ Img2 makes this super easy, just swap out your &lt;img /&gt; elements with &lt;i
 
 ### To Do
 
-1. Add polyfill support
-2. Add srcset support
-3. Publish to npm
-4. Finish README with install instructions, example and API docs
+1. Fix flickering in Firefox
+2. Fix ugly alt text in Firefox
+3. Add srcset support
+4. Publish to npm
+5. Finish README with install instructions, example and API docs
+6. Consider A11y
