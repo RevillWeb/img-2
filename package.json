@@ -5,7 +5,7 @@
   "main": "dist/img-2.module.js",
   "scripts": {
     "watch": "babel --plugins=transform-class-properties,transform-es2015-modules-strip src/img-2.js --out-file dist/img-2.js --watch",
-    "build": "babel --plugins=transform-class-properties,transform-es2015-modules-strip src/img-2.js --out-file dist/img-2.js && babel --plugins=transform-class-properties src/img-2.js --out-file dist/img-2.module.js && babel --plugins=transform-class-properties --presets=es2015 src/img-2.js --out-file dist/img-2.es5.js",
+    "build": "babel --plugins=transform-class-properties,transform-es2015-modules-strip src/img-2.js --out-file dist/img-2.js && babel --plugins=transform-class-properties --presets=es2015 src/img-2.js --out-file dist/img-2.es5.js",
     "serve": "http-server -p 3232 ."
   },
   "keywords": [

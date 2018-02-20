@@ -376,6 +376,4 @@ Img2.settings = {
     "RENDER_ON_PRECACHED": false // Set this to false to save memory but can cause jank during scrolling
 };
 
-export default Img2;
-
 window.customElements.define("img-2", Img2);
