@@ -10,7 +10,11 @@ Img2 makes this super easy, just swap out your &lt;img /&gt; elements with &lt;i
 3. Lazy load images as they enter the user's viewport instantly from the cache
 4. Display a blurred preview image while the user waits for initial images
 
+___
+
 [Live Demo](https://revillweb.github.io/img-2)
+
+___
 
 ## Install 
 
