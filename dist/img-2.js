@@ -30,11 +30,16 @@ class Img2 extends HTMLElement {
         this._onImgPreCached = this._onImgPreCached.bind(this);
     }
 
+    get loaded() {
+        return this._loaded;
+    }
+
     /**
      * Reset all private values
      * @private
      */
     _reset() {
+        if (this._loaded === true) this.removeAttribute("loaded");
         this._rendered = false;
         this._loading = false;
         this._loaded = false;
@@ -56,6 +61,7 @@ class Img2 extends HTMLElement {
                 }
                 img.img2-src {
                     z-index: 1;
+                    opacity: 0;
                 }
                 img.img2-preview {
                     z-index: 2;
@@ -65,6 +71,9 @@ class Img2 extends HTMLElement {
                     height: 100%;
                     top: 0;
                     left: 0;
+                }
+                :host([loaded]) img.img2-src {
+                    opacity: 1;
                 }
             </style>
         `;
@@ -125,6 +134,7 @@ class Img2 extends HTMLElement {
         }
         this._$img.onload = null;
         if (this._preCached === false) Img2._priorityCount -= 1;
+        this.setAttribute("loaded", "");
     }
 
     _onImgPreCached() {

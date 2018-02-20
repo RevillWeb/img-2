@@ -28,7 +28,6 @@ class Img2 extends HTMLElement {
         this._precache = this._precache.bind(this);
         this._onImgLoad = this._onImgLoad.bind(this);
         this._onImgPreCached = this._onImgPreCached.bind(this);
-
     }
 
     get loaded() {
@@ -84,9 +83,8 @@ class Img2 extends HTMLElement {
 
         if (window.ShadyCSS) ShadyCSS.styleElement(this);
         // Override any global settings
-        this._renderOnPreCached = (this.getAttribute("render-on-pre-cached") === "true");
+        this._renderOnPreCached = this.getAttribute("render-on-pre-cached") === "true";
         this._init();
-
     }
 
     _init() {
@@ -101,8 +99,8 @@ class Img2 extends HTMLElement {
         if (!this._src || !this._width || !this._height) return;
 
         // Set the height and width of the element so that we can figure out if it is on the screen or not
-        this.style.width = `${this._width}px`;
-        this.style.height = `${this._height}px`;
+        this.style.width = `${ this._width }px`;
+        this.style.height = `${ this._height }px`;
 
         // Figure out if this image is within view
         Img2.addIntersectListener(this, () => {
@@ -114,7 +112,6 @@ class Img2 extends HTMLElement {
 
         // Listen for precache instruction
         Img2._addPreCacheListener(this._precache, this._src);
-
     }
 
     /**
@@ -167,13 +164,13 @@ class Img2 extends HTMLElement {
                 this._width = newValue;
                 if (this._$preview !== null) this._$preview.width = this._width;
                 if (this._$img !== null) this._$img.width = this._width;
-                this.style.width = `${this._width}px`;
+                this.style.width = `${ this._width }px`;
                 break;
             case "height":
                 this._height = newValue;
                 if (this._$preview !== null) this._$preview.height = this._height;
                 if (this._$img !== null) this._$img.height = this._height;
-                this.style.height = `${this._height}px`;
+                this.style.height = `${ this._height }px`;
                 break;
             case "render-on-pre-cached":
                 this._renderOnPreCached = !(newValue === "false");
@@ -207,10 +204,10 @@ class Img2 extends HTMLElement {
         // Render the Shadow Root if not done already (src change can force this method to be called again)
         if (this._root === null) {
             // Attach the Shadow Root to the element
-            this._root = this.attachShadow({mode: "open"});
+            this._root = this.attachShadow({ mode: "open" });
             // Create the initial template with styles
             let $template = document.createElement("template");
-            $template.innerHTML = `${this[__style__]()}`;
+            $template.innerHTML = `${ this[__style__]() }`;
             if (window.ShadyCSS) ShadyCSS.prepareTemplate($template, "img-2");
             this._root.appendChild(document.importNode($template.content, true));
         }
@@ -244,7 +241,6 @@ class Img2 extends HTMLElement {
 
         // Flag as rendered
         this._rendered = true;
-
     }
 
     _precache() {
@@ -252,7 +248,6 @@ class Img2 extends HTMLElement {
         Img2._preCache(this._src, this._onImgPreCached);
     }
 
-    static _preCacheListeners = new Map();
     static _addPreCacheListener(cb, url) {
         Img2._preCacheListeners.set(cb, url);
     }
@@ -269,8 +264,6 @@ class Img2 extends HTMLElement {
      * Methods used to determine when currently visible (priority) elements have finished download to then inform other elements to pre-cache
      */
 
-    static __priorityCount = 0;
-    static _startPreCacheDebounce = null;
     static get _priorityCount() {
         return Img2.__priorityCount;
     }
@@ -283,7 +276,7 @@ class Img2 extends HTMLElement {
                 clearTimeout(Img2._startPreCacheDebounce);
                 Img2._startPreCacheDebounce = null;
             }
-            Img2._startPreCacheDebounce = setTimeout(function(){
+            Img2._startPreCacheDebounce = setTimeout(function () {
                 if (Img2.__priorityCount < 1) Img2._startPreCache();
             }, 500);
         }
@@ -292,12 +285,7 @@ class Img2 extends HTMLElement {
     /**
      * Methods used to determine when this element is in the visible viewport
      */
-    static _intersectListeners = new Map();
-    static _observer = new IntersectionObserver(Img2._handleIntersect, {
-        root: null,
-        rootMargin: "0px",
-        threshold: 0
-    });
+
 
     static addIntersectListener($element, intersectCallback) {
         Img2._intersectListeners.set($element, intersectCallback);
@@ -317,7 +305,6 @@ class Img2 extends HTMLElement {
         });
     }
 
-    static _preCacheCallbacks = {};
     static _preCache(url, cb) {
 
         let slot = Img2._preCacheCallbacks[url];
@@ -326,7 +313,7 @@ class Img2 extends HTMLElement {
                 cached: false,
                 cbs: [cb]
             };
-            const location = (url.indexOf("http") > -1) ? url : window.location.href + url;
+            const location = url.indexOf("http") > -1 ? url : window.location.href + url;
             Img2._worker.postMessage({ location: location, url: url });
         } else {
             if (slot.cached === true) {
@@ -342,21 +329,29 @@ class Img2 extends HTMLElement {
  * Methods used to pre-cache images using a WebWorker
  */
 
-Img2._worker = new Worker(window.URL.createObjectURL(
-    new Blob([`self.onmessage=${function (e) {
-        fetch(e.data.location).then((response) => {
-            if (response.status === 200 || response.status === 0) {
-                return Promise.resolve(response)
-            } else {
-                return Promise.reject(new Error(`Couldn't pre-cache URL '${e.data.url}'.`));
-            }
-        }).then((response) => {
-            return response.blob();
-        }).then(() => {
-            self.postMessage(e.data.url);
-        }).catch(console.error);
-    }.toString()};`], { type: "text/javascript"})
-));
+Img2._preCacheListeners = new Map();
+Img2.__priorityCount = 0;
+Img2._startPreCacheDebounce = null;
+Img2._intersectListeners = new Map();
+Img2._observer = new IntersectionObserver(Img2._handleIntersect, {
+    root: null,
+    rootMargin: "0px",
+    threshold: 0
+});
+Img2._preCacheCallbacks = {};
+Img2._worker = new Worker(window.URL.createObjectURL(new Blob([`self.onmessage=${ function (e) {
+    fetch(e.data.location).then(response => {
+        if (response.status === 200 || response.status === 0) {
+            return Promise.resolve(response);
+        } else {
+            return Promise.reject(new Error(`Couldn't pre-cache URL '${ e.data.url }'.`));
+        }
+    }).then(response => {
+        return response.blob();
+    }).then(() => {
+        self.postMessage(e.data.url);
+    }).catch(console.error);
+}.toString() };`], { type: "text/javascript" })));
 
 Img2._worker.onmessage = function (e) {
     const slot = Img2._preCacheCallbacks[e.data];

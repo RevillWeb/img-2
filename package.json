@@ -2,9 +2,10 @@
   "name": "img-2",
   "version": "1.0.0",
   "description": "Replace <img /> elements with <img-2> to automatically pre-cache images and improve page performance.",
-  "main": "index.js",
+  "main": "dist/img-2.module.js",
   "scripts": {
-    "build": "babel src/img-2.js --out-file dist/img-2.js --watch",
+    "watch": "babel --plugins=transform-class-properties,transform-es2015-modules-strip src/img-2.js --out-file dist/img-2.js --watch",
+    "build": "babel --plugins=transform-class-properties,transform-es2015-modules-strip src/img-2.js --out-file dist/img-2.js && babel --plugins=transform-class-properties src/img-2.js --out-file dist/img-2.module.js && babel --plugins=transform-class-properties --presets=es2015 src/img-2.js --out-file dist/img-2.es5.js",
     "serve": "http-server -p 3232 ."
   },
   "keywords": [
@@ -16,6 +17,8 @@
   "devDependencies": {
     "babel-core": "^6.26.0",
     "babel-plugin-transform-class-properties": "^6.24.1",
+    "babel-plugin-transform-es2015-modules-strip": "^0.1.1",
+    "babel-preset-es2015": "^6.24.1",
     "http-server": "^0.11.1"
   }
 }
