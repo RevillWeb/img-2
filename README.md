@@ -1,5 +1,5 @@
 # Img2
-Replace &lt;img /&gt; elements with &lt;img-2&gt;&lt;img-2/&gt; to automatically pre-cache images and improve page performance. Displaying even a small number of high-quality images on a web page can be difficult to do without causing jank or slowing down the initial load of the page. This is why clever developers employ techniques with JavaScript to pre-cache images and lazy load them as they become visible on the user's screen.
+Replace `<img />` elements with `<img-2></img-2>` to automatically pre-cache images and improve page performance. Displaying even a small number of high-quality images on a web page can be difficult to do without causing jank or slowing down the initial load of the page. This is why clever developers employ techniques with JavaScript to pre-cache images and lazy load them as they become visible on the user's screen.
 
 Img2 makes this super easy, just swap out your &lt;img /&gt; elements with &lt;img-2&gt;&lt;img-2/&gt; and let it do the work for you.
 
