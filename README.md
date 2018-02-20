@@ -30,7 +30,7 @@ You can include Img2 into your project in various ways:
 
 `<script src="dist/img-2.es5.js"></script>`
 
-Then you simple use the `<img-2></img-2>` element instead of an `<img />` element.
+Then you simply use the `<img-2></img-2>` element in place of an `<img />` element.
 
 ```
     <body>
