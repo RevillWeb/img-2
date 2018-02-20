@@ -12,7 +12,7 @@ Img2 makes this super easy, just swap out your &lt;img /&gt; elements with &lt;i
 
 ___
 
-[Live Demo](https://revillweb.github.io/img-2)
+[Live Demo](https://revillweb.github.io/img-2/)
 
 ___
 
