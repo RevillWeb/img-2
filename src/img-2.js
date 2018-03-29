@@ -344,17 +344,14 @@ class Img2 extends HTMLElement {
 
 Img2._worker = new Worker(window.URL.createObjectURL(
     new Blob([`self.onmessage=${function (e) {
-        fetch(e.data.location).then((response) => {
-            if (response.status === 200 || response.status === 0) {
-                return Promise.resolve(response)
-            } else {
-                return Promise.reject(new Error(`Couldn't pre-cache URL '${e.data.url}'.`));
-            }
-        }).then((response) => {
-            return response.blob();
-        }).then(() => {
+        const xhr = new XMLHttpRequest();
+        function onload() {
             self.postMessage(e.data.url);
-        }).catch(console.error);
+        }
+        xhr.responseType = "blob";
+        xhr.onload = xhr.onerror = onload;
+        xhr.open("GET", e.data.location, true);
+        xhr.send();
     }.toString()};`], { type: "text/javascript"})
 ));
 
