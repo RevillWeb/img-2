@@ -67,7 +67,9 @@ The alt text for the image, just maps on to the `alt` attribute of the `<img />`
 
 ## Supported platforms
 
-To Do: Add supported platforms.
+| Platform Support   | Chrome | Opera  | Firefox | Safari | Edge | IE 11 |
+| ------------------ |:------:|:------:|:-------:|:------:|:----:|:-----:|
+| Supported          |✓|✓|✓|✓|✓|✓|
 
 ## Limitations
 

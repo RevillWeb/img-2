@@ -14,8 +14,6 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
  * Twitter: @RevillWeb
  * GitHub: github.com/RevillWeb
  */
-var __style__ = Symbol();
-
 var Img2 = function (_HTMLElement) {
     _inherits(Img2, _HTMLElement);
 
@@ -60,11 +58,6 @@ var Img2 = function (_HTMLElement) {
             this._loaded = false;
             this._preCaching = false;
             this._preCached = false;
-        }
-    }, {
-        key: __style__,
-        value: function value() {
-            return "\n            <style>\n                :host {\n                    position: relative;\n                    overflow: hidden;\n                    display: inline-block;\n                    outline: none;\n                }\n                img {\n                    position: absolute;\n                }\n                img.img2-src {\n                    z-index: 1;\n                    opacity: 0;\n                }\n                img.img2-preview {\n                    z-index: 2;\n                    filter: blur(2vw);\n                    transform: scale(1.5);\n                    width: 100%;\n                    height: 100%;\n                    top: 0;\n                    left: 0;\n                }\n                :host([loaded]) img.img2-src {\n                    opacity: 1;\n                }\n            </style>\n        ";
         }
     }, {
         key: "connectedCallback",
@@ -207,7 +200,7 @@ var Img2 = function (_HTMLElement) {
                 this._root = this.attachShadow({ mode: "open" });
                 // Create the initial template with styles
                 var $template = document.createElement("template");
-                $template.innerHTML = "" + this[__style__]();
+                $template.innerHTML = "\n                <style>\n                    :host {\n                        position: relative;\n                        overflow: hidden;\n                        display: inline-block;\n                        outline: none;\n                    }\n                    img {\n                        position: absolute;\n                    }\n                    img.img2-src {\n                        z-index: 1;\n                        opacity: 0;\n                    }\n                    img.img2-preview {\n                        z-index: 2;\n                        filter: blur(2vw);\n                        transform: scale(1.5);\n                        width: 100%;\n                        height: 100%;\n                        top: 0;\n                        left: 0;\n                    }\n                    :host([loaded]) img.img2-src {\n                        opacity: 1;\n                    }\n                </style>\n            ";
                 if (window.ShadyCSS) ShadyCSS.prepareTemplate($template, "img-2");
                 this._root.appendChild(document.importNode($template.content, true));
             }
@@ -385,17 +378,14 @@ Img2._observer = new IntersectionObserver(Img2._handleIntersect, {
 });
 Img2._preCacheCallbacks = {};
 Img2._worker = new Worker(window.URL.createObjectURL(new Blob(["self.onmessage=" + function (e) {
-    fetch(e.data.location).then(function (response) {
-        if (response.status === 200 || response.status === 0) {
-            return Promise.resolve(response);
-        } else {
-            return Promise.reject(new Error("Couldn't pre-cache URL '" + e.data.url + "'."));
-        }
-    }).then(function (response) {
-        return response.blob();
-    }).then(function () {
+    var xhr = new XMLHttpRequest();
+    function onload() {
         self.postMessage(e.data.url);
-    }).catch(console.error);
+    }
+    xhr.responseType = "blob";
+    xhr.onload = xhr.onerror = onload;
+    xhr.open("GET", e.data.location, true);
+    xhr.send();
 }.toString() + ";"], { type: "text/javascript" })));
 
 Img2._worker.onmessage = function (e) {
