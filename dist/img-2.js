@@ -4,8 +4,6 @@
  * Twitter: @RevillWeb
  * GitHub: github.com/RevillWeb
  */
-const __style__ = Symbol();
-
 class Img2 extends HTMLElement {
 
     constructor() {
@@ -45,38 +43,6 @@ class Img2 extends HTMLElement {
         this._loaded = false;
         this._preCaching = false;
         this._preCached = false;
-    }
-
-    [__style__]() {
-        return `
-            <style>
-                :host {
-                    position: relative;
-                    overflow: hidden;
-                    display: inline-block;
-                    outline: none;
-                }
-                img {
-                    position: absolute;
-                }
-                img.img2-src {
-                    z-index: 1;
-                    opacity: 0;
-                }
-                img.img2-preview {
-                    z-index: 2;
-                    filter: blur(2vw);
-                    transform: scale(1.5);
-                    width: 100%;
-                    height: 100%;
-                    top: 0;
-                    left: 0;
-                }
-                :host([loaded]) img.img2-src {
-                    opacity: 1;
-                }
-            </style>
-        `;
     }
 
     connectedCallback() {
@@ -207,7 +173,35 @@ class Img2 extends HTMLElement {
             this._root = this.attachShadow({ mode: "open" });
             // Create the initial template with styles
             let $template = document.createElement("template");
-            $template.innerHTML = `${ this[__style__]() }`;
+            $template.innerHTML = `
+                <style>
+                    :host {
+                        position: relative;
+                        overflow: hidden;
+                        display: inline-block;
+                        outline: none;
+                    }
+                    img {
+                        position: absolute;
+                    }
+                    img.img2-src {
+                        z-index: 1;
+                        opacity: 0;
+                    }
+                    img.img2-preview {
+                        z-index: 2;
+                        filter: blur(2vw);
+                        transform: scale(1.5);
+                        width: 100%;
+                        height: 100%;
+                        top: 0;
+                        left: 0;
+                    }
+                    :host([loaded]) img.img2-src {
+                        opacity: 1;
+                    }
+                </style>
+            `;
             if (window.ShadyCSS) ShadyCSS.prepareTemplate($template, "img-2");
             this._root.appendChild(document.importNode($template.content, true));
         }
@@ -340,17 +334,14 @@ Img2._observer = new IntersectionObserver(Img2._handleIntersect, {
 });
 Img2._preCacheCallbacks = {};
 Img2._worker = new Worker(window.URL.createObjectURL(new Blob([`self.onmessage=${ function (e) {
-    fetch(e.data.location).then(response => {
-        if (response.status === 200 || response.status === 0) {
-            return Promise.resolve(response);
-        } else {
-            return Promise.reject(new Error(`Couldn't pre-cache URL '${ e.data.url }'.`));
-        }
-    }).then(response => {
-        return response.blob();
-    }).then(() => {
+    const xhr = new XMLHttpRequest();
+    function onload() {
         self.postMessage(e.data.url);
-    }).catch(console.error);
+    }
+    xhr.responseType = "blob";
+    xhr.onload = xhr.onerror = onload;
+    xhr.open("GET", e.data.location, true);
+    xhr.send();
 }.toString() };`], { type: "text/javascript" })));
 
 Img2._worker.onmessage = function (e) {

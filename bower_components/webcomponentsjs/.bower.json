@@ -1,0 +1,35 @@
+{
+  "name": "webcomponentsjs",
+  "description": "Web components polyfill",
+  "main": "webcomponents.js",
+  "homepage": "http://webcomponents.org",
+  "authors": [
+    "The Polymer Authors"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/webcomponents/webcomponentsjs.git"
+  },
+  "keywords": [
+    "webcomponents",
+    "web-components",
+    "polyfill",
+    "shim"
+  ],
+  "license": "BSD-3-Clause",
+  "ignore": [],
+  "devDependencies": {
+    "web-component-tester": "^v6.0.0"
+  },
+  "version": "1.1.1",
+  "_release": "1.1.1",
+  "_resolution": {
+    "type": "version",
+    "tag": "v1.1.1",
+    "commit": "2bb2c2c92008d2354b75c0fa633ea404c5c999c3"
+  },
+  "_source": "https://github.com/Polymer/webcomponentsjs.git",
+  "_target": "^1.1.1",
+  "_originalSource": "webcomponentsjs",
+  "_direct": true
+}

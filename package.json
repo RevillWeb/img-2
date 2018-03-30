@@ -1,6 +1,6 @@
 {
   "name": "img-2",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Replace <img /> elements with <img-2> to automatically pre-cache images and improve page performance.",
   "main": "dist/img-2.module.js",
   "scripts": {
