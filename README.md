@@ -84,7 +84,7 @@ Img-2 uses Custom Elements and Shadow DOM so for FireFox, Edge and IE11 you'll n
 <script src="bower_components/webcomponentsjs/webcomponents-loader.js"></script>
 ```
 
-If you need to support IE11 which doesn't support ES6 you'll want to conditionally load img-2.es5.js.
+If you need to support IE11 which doesn't support ES6 you'll want to conditionally load `img-2.es5.js`.
 
 ```
 var supportsES6 = function() {
