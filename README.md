@@ -65,19 +65,46 @@ A really small representation of the full-size image (e.g. 10px by 10px). This i
 
 The alt text for the image, just maps on to the `alt` attribute of the `<img />` element used in the component.
 
-## Supported platforms
+## Supported platforms & 
 
-| Platform Support   | Chrome | Chrome for Android | Opera | Firefox | Safari | iOS Safari | Edge | IE 11 |
-| ------------------ |:------:|:------:|:------:|:-------:|:------:|:------:|:----:|:-----:|
+| Platform Support   | Chrome | Chrome for Android | Firefox | Safari | iOS Safari | Edge | IE 11 |
+| ------------------ |:------:|:------:|:------:|:------:|:------:|:----:|:-----:|
 | Supported          |✓|✓|✓|✓|✓|✓|✓|✓|
-| Polyfill(s) Required |-|-|-|✓|✓|✓|✓|✓|
+| Polyfill(s) Required |-|-|✓|✓|✓|✓|✓|✓|
 
-## Limitations
+Img-2 uses the [Intersection Observer](https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API) to detect when an image is in the users visible viewport. For Safari and IE 11 you'll need to load the Intersection Observer polyfill.
 
-To Do: Add limitations, IntersectionObserver requirement, etc.
+```
+<script src="https://polyfill.io/v2/polyfill.min.js?features=IntersectionObserver"></script>
+```
+
+Img-2 uses Custom Elements and Shadow DOM so for FireFox, Edge and IE11 you'll need to use the webcomponents-loader from [webcomponentsjs](https://github.com/webcomponents/webcomponentsjs).
+
+```
+<script src="bower_components/webcomponentsjs/webcomponents-loader.js"></script>
+```
+
+If you need to support IE11 which doesn't support ES6 you'll want to conditionally load img-2.es5.js.
+
+```
+var supportsES6 = function() {
+    try {
+        new Function("(a = 0) => a");
+        return true;
+    }
+    catch (err) {
+        return false;
+    }
+}();
+var $script = document.createElement("script");
+$script.setAttribute("defer", "");
+$script.src = (supportsES6 === true) ? "dist/img-2.js" : "dist/img-2.es5.js";
+document.head.appendChild($script);
+```
+
+Take a look at `index.html` in the root of this repo for further examples.
 
 ### To Do
 
-1. Fix flickering in Firefox
-2. Add srcset support
-3. Consider A11y
+1. Add srcset support
+2. Consider A11y
