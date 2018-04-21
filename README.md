@@ -41,7 +41,7 @@ Then you simply use the `<img-2></img-2>` element in place of an `<img />` eleme
 ```
     <body>
         <h1>Cat Photos</h1>
-        <img-2 src="https://notreal.com/cat_1920x1080.jpf" width="400" height="267" src-preview="https://notreal.com/cat_10x10.jpg" alt="An amazing picture of a cat"></img-2>
+        <img-2 src="https://notreal.com/cat_1920x1080.jpg" width="400" height="267" src-preview="https://notreal.com/cat_10x10.jpg" alt="An amazing picture of a cat"></img-2>
     </body>
 ```
 
@@ -103,6 +103,10 @@ document.head.appendChild($script);
 ```
 
 Take a look at `index.html` in the root of this repo for further examples.
+
+### Contributing
+
+Any contributions are welcome, feel free to submit a pull request for review.
 
 ### To Do
 
