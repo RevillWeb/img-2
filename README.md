@@ -90,7 +90,7 @@ Img-2 uses Custom Elements and Shadow DOM so for FireFox, Edge and IE11 you'll n
 
 If you need to support IE11 which doesn't support ES6 you'll want to conditionally load `img-2.es5.js`.
 
-````js
+```js
 var supportsES6 = function() {
     try {
         new Function("(a = 0) => a");
