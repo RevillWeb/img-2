@@ -30,15 +30,19 @@ You can include Img2 into your project in various ways:
 
 ### Via `<script>` as ES6
 
-`<script src="dist/img-2.js"></script>`
+```html
+<script src="dist/img-2.js"></script>
+```
 
 ### Via `<script>` as ES5
 
-`<script src="dist/img-2.es5.js"></script>`
+```html
+<script src="dist/img-2.es5.js"></script>
+```
 
 Then you simply use the `<img-2></img-2>` element in place of an `<img />` element.
 
-```
+```html
     <body>
         <h1>Cat Photos</h1>
         <img-2 src="https://notreal.com/cat_1920x1080.jpg" width="400" height="267" src-preview="https://notreal.com/cat_10x10.jpg" alt="An amazing picture of a cat"></img-2>
@@ -74,19 +78,19 @@ The alt text for the image, just maps on to the `alt` attribute of the `<img />`
 
 Img-2 uses the [Intersection Observer](https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API) to detect when an image is in the users visible viewport. For Safari and IE 11 you'll need to load the Intersection Observer polyfill.
 
-```
+```html
 <script src="https://polyfill.io/v2/polyfill.min.js?features=IntersectionObserver"></script>
 ```
 
 Img-2 uses Custom Elements and Shadow DOM so for FireFox, Edge and IE11 you'll need to use the webcomponents-loader from [webcomponentsjs](https://github.com/webcomponents/webcomponentsjs).
 
-```
+```html
 <script src="bower_components/webcomponentsjs/webcomponents-loader.js"></script>
 ```
 
 If you need to support IE11 which doesn't support ES6 you'll want to conditionally load `img-2.es5.js`.
 
-```
+````js
 var supportsES6 = function() {
     try {
         new Function("(a = 0) => a");
@@ -96,6 +100,7 @@ var supportsES6 = function() {
         return false;
     }
 }();
+
 var $script = document.createElement("script");
 $script.setAttribute("defer", "");
 $script.src = (supportsES6 === true) ? "dist/img-2.js" : "dist/img-2.es5.js";
