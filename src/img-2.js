@@ -320,7 +320,8 @@ class Img2 extends HTMLElement {
                 cached: false,
                 cbs: [cb]
             };
-            const location = (url.indexOf("http") > -1) ? url : window.location.href + url;
+            const absolute = url.indexOf("http") === 0 || url.indexOf("/") === 0;
+            const location = absolute ? url : window.location.href + url;
             Img2._worker.postMessage({ location: location, url: url });
         } else {
             if (slot.cached === true) {
