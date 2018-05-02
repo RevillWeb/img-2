@@ -39,6 +39,7 @@ class Img2 extends HTMLElement {
      */
     _reset() {
         if (this._loaded === true) this.removeAttribute("loaded");
+        this._inited = false;
         this._rendered = false;
         this._loading = false;
         this._loaded = false;
@@ -80,7 +81,7 @@ class Img2 extends HTMLElement {
 
         // Listen for precache instruction
         Img2._addPreCacheListener(this._precache, this._src);
-
+        this._inited = true;
     }
 
     /**
@@ -134,12 +135,14 @@ class Img2 extends HTMLElement {
                 if (this._$preview !== null) this._$preview.width = this._width;
                 if (this._$img !== null) this._$img.width = this._width;
                 this.style.width = `${this._width}px`;
+                if (!this._inited) this._init();
                 break;
             case "height":
                 this._height = newValue;
                 if (this._$preview !== null) this._$preview.height = this._height;
                 if (this._$img !== null) this._$img.height = this._height;
                 this.style.height = `${this._height}px`;
+                if (!this._inited) this._init();
                 break;
             case "render-on-pre-cached":
                 this._renderOnPreCached = !(newValue === "false");
