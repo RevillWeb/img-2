@@ -26,7 +26,7 @@ You can include Img2 into your project in various ways:
 
 ### As a ES6 Module
 
-`import "Img2"`
+`import "img-2"`
 
 ### Via `<script>` as ES6
 
