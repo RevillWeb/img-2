@@ -1,6 +1,7 @@
 {
   "name": "img-2",
   "version": "0.0.3",
+  "repository": "https://github.com/RevillWeb/img-2.git",
   "description": "Replace <img /> elements with <img-2> to automatically pre-cache images and improve page performance.",
   "main": "dist/img-2.js",
   "scripts": {
